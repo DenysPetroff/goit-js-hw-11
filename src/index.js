@@ -1,4 +1,3 @@
-import axios from 'axios';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
@@ -16,14 +15,22 @@ const loadMoreBtn = document.querySelector('.load-more');
 
 
 searchForm.addEventListener('submit', formSubmit);
+loadMoreBtn.addEventListener('click', loadMore);
+loadMoreBtn.style.display = 'none';
 
-let gallery = new SimpleLightbox('.gallery');
+const gallery = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
+});
+  
 let inputSearch = '';
 let currentPage = 1;
 
 function formSubmit(evt) { 
     evt.preventDefault();
-    galleryContainer.innerHTML = '';
+  galleryContainer.innerHTML = '';
+  Loading.circle();
     inputSearch = formInput.value;
     // currentPage = 1;
 
@@ -34,11 +41,12 @@ function formSubmit(evt) {
         )           
             } else {
                 Notify.success(`Hooray! We found ${data.totalHits} images.`);
-                createGalleryMarkup(data)
-
+              createGalleryMarkup(data);
             }
         }
-    )
+    ).catch( () => Notify.failure('Error fetching images. Please try again later.')    
+  )
+  Loading.remove();
 
 
 }
@@ -58,7 +66,37 @@ function createGalleryMarkup(data) {
   `
     ).join('');
 
-    galleryContainer.insertAdjacentHTML('beforeend', cardImg);  
+  galleryContainer.insertAdjacentHTML('beforeend', cardImg); 
+  gallery.refresh();
+   
+  loadMoreBtn.style.display = 'block';
 }
+
+ async function loadMore() { 
+  currentPage += 1;
+   Loading.hourglass('Loading more images...');
+   try {
+     const data = await getFromApi(inputSearch, currentPage);
+     createGalleryMarkup(data)
+    //  console.log(currentPage);
+     const { height: cardHeight } = document
+      .querySelector('.gallery')
+      .firstElementChild.getBoundingClientRect();
+    window.scrollBy({ top: cardHeight * 2, behavior: 'smooth' });
+     if (currentPage === Math.round(data.totalHits / 40)) {
+       Notify.info("We're sorry, but you've reached the end of search results.");
+       loadMoreBtn.style.display = 'none';
+     }
+       
+   } catch (error) {
+     Notify.failure('Error loading more images. Please try again later.')
+   }
+   finally {
+    Loading.remove();
+  }
+   };
+
+
+
 
 

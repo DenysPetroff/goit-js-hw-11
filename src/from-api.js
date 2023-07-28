@@ -1,5 +1,5 @@
 import axios from 'axios';
-import Notiflix from 'notiflix';
+
 
 const BASE_URL = 'https://pixabay.com/api/';
 const KEY = '38511196-ae363f56bf8cdaa1e3bc59f0d';
@@ -20,7 +20,7 @@ export async function getFromApi(inputSearch, currentPage) {
     per_page: PER_PAGE,
     })
 
-    // Notiflix.Loading.circle();
+    
 
     const response = await axios.get(`?${params}`);
     return await response.data;

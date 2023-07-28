@@ -1,0 +1,90 @@
+body {
+    background-color: goldenrod;
+    }
+.gallery {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    margin-bottom: 10px;
+}
+
+.search-form {
+    display: flex;
+    justify-content: space-around;
+    padding: 25px 0;
+    width: 320px;
+    margin: 0 auto;
+    background-color: burlywood;
+    margin-bottom: 20 px;
+    border-radius: 10px;
+}
+
+.search-form button {
+    cursor: pointer;
+    background: #252625;
+    color: #fff;
+    border-radius: 20px;
+}
+
+
+.search-form button:hover {
+        background: #39403c;
+        color: #fff;
+        border-radius: 20px;
+        box-shadow: 5px 5px 5px rgb(199, 236, 120);
+    }
+
+input {
+    border-radius: 5px;
+    padding: 5px 5px;
+}
+
+.load-more {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    background: #252625;
+    color: #fff;
+    border-radius: 20px;
+    
+    margin-bottom: 20px;
+    margin: 0 auto;
+  
+}
+.load-more:hover {
+    background: #39403c;
+    color: #fff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgb(199, 236, 120);
+
+}
+
+.info-item {
+    color:#252625;
+    
+}
+
+ul {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.photo-card {
+    width: 300px;
+    border-radius: 10px;
+    background-color: white ;
+    padding-bottom: 10px;
+    cursor: pointer;
+
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
