@@ -36,9 +36,10 @@ function formSubmit(evt) {
 
     getFromApi(inputSearch, currentPage).then(
         data => { console.log(data);
-            if (data.totalHits === 0) { Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        )           
+        if (data.totalHits === 0) {
+          Notify.failure(
+            'Sorry, there are no images matching your search query. Please try again.');
+          loadMoreBtn.style.display = 'none';
             } else {
                 Notify.success(`Hooray! We found ${data.totalHits} images.`);
               createGalleryMarkup(data);
