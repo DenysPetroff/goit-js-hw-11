@@ -32,7 +32,7 @@ function formSubmit(evt) {
   galleryContainer.innerHTML = '';
   Loading.circle();
     inputSearch = formInput.value;
-    // currentPage = 1;
+    currentPage = 1;
 
     getFromApi(inputSearch, currentPage).then(
         data => { console.log(data);
